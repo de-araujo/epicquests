@@ -1,0 +1,10 @@
+name: Quests
+version: ${project.version}
+main: dev.ahowe.quests.quests.Quests
+api-version: 1.16
+
+commands:
+  test:
+    description: Test Command
+  spawnqg:
+    description: Spawns a quest giver

@@ -1,0 +1,5 @@
+dev\ahowe\quests\quests\Commands\TestCommand.class
+dev\ahowe\quests\quests\Listeners\FORCETHEPLAYERSTODOWNLOADOURSHIT.class
+dev\ahowe\quests\quests\Listeners\PlayerJoin.class
+dev\ahowe\quests\quests\Commands\QuestGiverTestCommand.class
+dev\ahowe\quests\quests\Quests.class
