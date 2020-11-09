@@ -28,11 +28,11 @@ public class QuestGiverTestCommand implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if(!(sender instanceof Player)) return false;
-		Player p = (Player) sender;
+		Player player = (Player) sender;
 
-		if(!p.isOp()) return false;
+		if(!player.isOp()) return false;
 
-		Villager questGiver = (Villager) p.getWorld().spawnEntity(p.getLocation(), EntityType.VILLAGER);
+		Villager questGiver = (Villager) player.getWorld().spawnEntity(player.getLocation(), EntityType.VILLAGER);
 		questGiver.setProfession(Villager.Profession.NITWIT);
 		questGiver.setInvulnerable(true);
 		questGiver.setCustomName("Quest Giver");
@@ -58,7 +58,7 @@ public class QuestGiverTestCommand implements CommandExecutor {
 
 		neededItem.setItemMeta(neededMeta);
 
-		p.getInventory().addItem(neededItem);
+		player.getInventory().addItem(neededItem);
 
 		trade.addIngredient(neededItem);
 

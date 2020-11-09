@@ -4,7 +4,7 @@ import dev.ahowe.quests.quests.Commands.QuestGiverTestCommand;
 import dev.ahowe.quests.quests.Commands.TestCommand;
 import dev.ahowe.quests.quests.Listeners.FORCETHEPLAYERSTODOWNLOADOURSHIT;
 import dev.ahowe.quests.quests.Listeners.PlayerJoin;
-import jdk.jfr.events.ExceptionThrownEvent;
+import dev.ahowe.quests.quests.Listeners.QuestPointer;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -19,6 +19,7 @@ public final class Quests extends JavaPlugin {
 		saveDefaultConfig();
 
 		this.config = getConfig();
+		initDB();
 		initEvents();
 		initCommands();
 	}
@@ -31,6 +32,12 @@ public final class Quests extends JavaPlugin {
 	public void initEvents() {
 		getServer().getPluginManager().registerEvents(new PlayerJoin(this), this);
 		getServer().getPluginManager().registerEvents(new FORCETHEPLAYERSTODOWNLOADOURSHIT(this), this);
+		getServer().getPluginManager().registerEvents(new QuestPointer(this), this);
+
+	}
+
+	public void initDB() {
+
 	}
 
 	@Override

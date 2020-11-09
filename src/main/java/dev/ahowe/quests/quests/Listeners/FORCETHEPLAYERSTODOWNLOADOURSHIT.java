@@ -15,14 +15,14 @@ public class FORCETHEPLAYERSTODOWNLOADOURSHIT implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void on(PlayerResourcePackStatusEvent ev) {
-		Player p = ev.getPlayer();
+		Player player = ev.getPlayer();
 		PlayerResourcePackStatusEvent.Status status = ev.getStatus();
 		if(
 			status == PlayerResourcePackStatusEvent.Status.DECLINED ||
 			status == PlayerResourcePackStatusEvent.Status.FAILED_DOWNLOAD
 		) {
 			// send them a friendly reminder
-			p.kickPlayer("ACCEPT THE RESOURCE PACK DOWNLOAD!!!!!!!!");
+			player.kickPlayer("ACCEPT THE RESOURCE PACK DOWNLOAD!!!!!!!!");
 			plugin.getLogger().info("Some idot dared to join this servar without eccepting the resorce pack");
 		}
 	}
