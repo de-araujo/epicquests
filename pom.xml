@@ -101,6 +101,10 @@
             <id>ormlite-repo</id>
             <url>https://repo1.maven.org/maven2/</url>
         </repository>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -121,30 +125,14 @@
             <version>4.1.1</version>
         </dependency>
         <dependency>
-            <groupId>io.reactivex.rxjava3</groupId>
-            <artifactId>rxjava</artifactId>
-            <version>3.0.7</version>
-        </dependency>
-        <dependency>
-            <groupId>com.j256.ormlite</groupId>
-            <artifactId>ormlite-core</artifactId>
-            <version>5.1</version>
-        </dependency>
-        <dependency>
             <groupId>io.github.bananapuncher714</groupId>
             <artifactId>NBTEditor</artifactId>
             <version>7.16</version>
         </dependency>
         <dependency>
-            <groupId>com.j256.ormlite</groupId>
-            <artifactId>ormlite-jdbc</artifactId>
-            <version>5.1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.21</version>
+            <groupId>com.github.jely2002</groupId>
+            <artifactId>StandaloneCrazyAdvancementsAPI</artifactId>
+            <version>1.13.10</version>
         </dependency>
     </dependencies>
 </project>
