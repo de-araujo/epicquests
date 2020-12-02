@@ -16,11 +16,9 @@ public class PlayerJoin implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void on(PlayerJoinEvent ev) {
-		Player player = ev.getPlayer();
-		String rpUrl = plugin.getQuestConfig().getString("rp");
-
-		if(rpUrl == null) return;
-
-		player.setResourcePack(rpUrl);
+//		Player player = ev.getPlayer();
+//		String rpUrl = plugin.getQuestConfig().getString("rp");
+//		if(rpUrl == null) return;
+//		player.setResourcePack(rpUrl);
 	}
 }
