@@ -12,6 +12,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.PluginBase;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -36,16 +38,13 @@ public class GunFire implements Listener {
 
 		if(model != 2) return;
 
-		Entity lookingAt = getNearestEntityInSight(player, 50);
-
-		if(lookingAt == null) return;
-
-		lookingAt.remove();
+//		Entity lookingAt = getNearestEntityInSight(player, 50);
+//		if(lookingAt == null) return;
+//		lookingAt.remove();
 
 		SpectralArrow arrow = (SpectralArrow) player.getWorld().spawnEntity(player.getLocation().add(0, 1, 0), EntityType.SPECTRAL_ARROW);
-
-//		arrow.setVelocity(player.getLocation().getDirection().multiply(2));
-//		arrow.setShooter(player);
+		arrow.setVelocity(player.getLocation().getDirection().multiply(3));
+		arrow.setShooter(player);
 	}
 
 	public static Entity getNearestEntityInSight(Player player, int range) {

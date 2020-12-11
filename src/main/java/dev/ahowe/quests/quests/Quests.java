@@ -4,6 +4,7 @@ import static com.ea.async.Async.await;
 import com.ea.async.Async;
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
+import com.mongodb.client.result.InsertManyResult;
 import com.mongodb.client.result.InsertOneResult;
 import com.mongodb.reactivestreams.client.MongoClient;
 import com.mongodb.reactivestreams.client.MongoClients;
@@ -18,6 +19,10 @@ import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -26,6 +31,13 @@ import static dev.ahowe.quests.quests.Utils.AsyncUtils.toAsyncSingle;
 
 public final class Quests extends JavaPlugin {
 	private FileConfiguration config;
+
+	private MongoDatabase db;
+	private MongoClient dbClient;
+
+	public MongoDatabase getDb() {
+		return db;
+	}
 
 	public FileConfiguration getQuestConfig() { return config; }
 
@@ -41,7 +53,7 @@ public final class Quests extends JavaPlugin {
 		CompletableFuture<String> example = CompletableFuture.supplyAsync(() -> "Test string");
 		getLogger().info(await(example));
 
-		//initDB();
+		initDB();
 		initEvents();
 		initCommands();
 	}
@@ -56,7 +68,6 @@ public final class Quests extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new FORCETHEPLAYERSTODOWNLOADOURSHIT(this), this);
 		getServer().getPluginManager().registerEvents(new QuestPointer(this), this);
 		getServer().getPluginManager().registerEvents(new ChunkGenerated(this), this);
-		getServer().getPluginManager().registerEvents(new ChunkLoad(this), this);
 		getServer().getPluginManager().registerEvents(new GunFire(this), this);
 		getLogger().info("Registered events");
 	}
@@ -78,19 +89,28 @@ public final class Quests extends JavaPlugin {
 			.codecRegistry(registry)
 			.build();
 
-		MongoClient mongoClient = MongoClients.create(settings);
-		MongoDatabase db = mongoClient.getDatabase("quests");
-		MongoCollection<Quest> collection = db.getCollection("quests", Quest.class);
+		this.dbClient = MongoClients.create(settings);
+		this.db = this.dbClient.getDatabase("quests");
 
-		await(toAsyncSingle(collection.insertOne(new Quest("First Quest"))::subscribe));
-		await(toAsyncSingle(collection.insertOne(new Quest("Second Quest"))::subscribe));
-		await(toAsyncSingle(collection.insertOne(new Quest("Third Quest"))::subscribe));
+		MongoCollection<Quest> collection = this.db.getCollection("quests", Quest.class);
 
-		List<Quest> quests = await(toAsyncMulti(collection.find()::subscribe));
+		List<Quest> quests = new ArrayList<>();
 
-		for(Quest quest : quests) {
-			getLogger().info(quest._id.toString());
-		}
+		quests.add(new Quest("Example Quest", "34c3d4d9-e9af-457c-99d4-e80fd13ebc7e"));
+		quests.add(new Quest("Test Quest", "34c3d4d9-e9af-457c-99d4-e80fd13ebc7e"));
+		quests.add(new Quest("Epic Quest", "34c3d4d9-e9af-457c-99d4-e80fd13ebc7e"));
+
+		await(toAsyncMulti(collection.insertMany(quests)::subscribe));
+
+//		await(toAsyncSingle(collection.insertOne(new Quest("First Quest"))::subscribe));
+//		await(toAsyncSingle(collection.insertOne(new Quest("Second Quest"))::subscribe));
+//		await(toAsyncSingle(collection.insertOne(new Quest("Third Quest"))::subscribe));
+//
+//		List<Quest> quests = await(toAsyncMulti(collection.find()::subscribe));
+//
+//		for(Quest quest : quests) {
+//			getLogger().info(quest._id.toString());
+//		}
 	}
 
 	@Override

@@ -15,8 +15,6 @@ import org.bukkit.Chunk;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.world.ChunkEvent;
-import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.event.world.ChunkPopulateEvent;
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,10 +29,11 @@ public class ChunkGenerated implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onChunkPopulate(ChunkPopulateEvent ev) {
+		//TODO: Fix this
 		plugin.getLogger().info("Server called the Chuk Populate event!");
 
 		Chunk chunk = ev.getChunk();
-		InputStream schematic = plugin.getResource("schematics/TEST.schem");
+		InputStream schematic = plugin.getResource("schematics/TEST.schematic");
 		ClipboardFormat format = ClipboardFormats.findByAlias("schematic");
 
 		if(format == null) {
@@ -48,9 +47,9 @@ public class ChunkGenerated implements Listener {
 			EditSession es = getSession(chunk.getWorld());
 
 			Operation paste = new ClipboardHolder(clipboard)
-					.createPaste(es)
-					.to(BlockVector3.at(chunk.getX(), 100, chunk.getZ()))
-					.build();
+				.createPaste(es)
+				.to(BlockVector3.at(chunk.getX(), 100, chunk.getZ()))
+				.build();
 
 			Operations.complete(paste);
 		} catch (IOException | WorldEditException e) {

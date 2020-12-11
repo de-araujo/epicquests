@@ -35,7 +35,7 @@ public class QuestGiverTestCommand implements CommandExecutor {
 		Villager questGiver = (Villager) player.getWorld().spawnEntity(player.getLocation(), EntityType.VILLAGER);
 		questGiver.setProfession(Villager.Profession.NITWIT);
 		questGiver.setInvulnerable(true);
-		questGiver.setCustomName("Quest Giver");
+		questGiver.setCustomName("qg - Test Giver");
 		questGiver.setCustomNameVisible(false);
 
 		ItemStack item = new ItemStack(Material.CLOCK);
